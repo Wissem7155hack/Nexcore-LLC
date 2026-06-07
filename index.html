@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexcore — Elevate Your Practice</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Floating Centered Navbar -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-text">Nexcore</div>
+            <nav class="nav-links">
+                <a href="#">Product</a>
+                <a href="#">Solutions</a>
+                <a href="#">Who We Serve</a>
+                <a href="#">Resources</a>
+                <a href="#">Company</a>
+                <a href="#">Pricing</a>
+                <a href="#">Reviews</a>
+            </nav>
+            <div class="header-actions">
+                <a href="#" class="btn-login">Log in</a>
+                <a href="#" class="btn-cta-filled">BOOK A DEMO</a>
+            </div>
+            <button class="hamburger" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <nav class="mobile-nav">
+            <a href="#">Product</a>
+            <a href="#">Solutions</a>
+            <a href="#">Who We Serve</a>
+            <a href="#">Resources</a>
+            <a href="#">Company</a>
+            <a href="#">Pricing</a>
+            <a href="#">Reviews</a>
+            <div class="mobile-nav-actions">
+                <a href="#" class="btn-login">Log in</a>
+                <a href="#" class="btn-cta-filled">BOOK A DEMO</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section with Glass Flower Background -->
+    <section class="hero-section">
+        <div class="hero-wrapper">
+            <div class="hero-content">
+                <h1>What if your practice could grow <span class="break-line">while you sleep?</span></h1>
+                <p>We built a platform that combines the power of rewards, AI, and 24/7 shopping all inside your own branded app.</p>
+                <a href="#" class="btn-cta-outline">BOOK A DEMO</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Value Bar Section -->
+    <section class="value-bar-section">
+        <div class="value-bar-container">
+            <h2 class="value-section-title">Engineered for Premium Aesthetic Practices</h2>
+            <div class="value-grid">
+                <div class="value-column">
+                    <div class="metric-number">+889%</div>
+                    <div class="metric-label">Higher Conversion Rate</div>
+                    <div class="metric-desc">Hyper-targeted in-app offers trigger based on exact patient browsing behavior, outperforming traditional marketing.</div>
+                </div>
+                <div class="value-column central-column">
+                    <div class="metric-number">24/7</div>
+                    <div class="metric-label">Automated Monetization</div>
+                    <div class="metric-desc">Your custom branded practice app runs continuously, converting passive interest into treatment sales while you sleep.</div>
+                </div>
+                <div class="value-column">
+                    <div class="metric-number">0%</div>
+                    <div class="metric-label">Leaked Patient Value</div>
+                    <div class="metric-desc">Eliminate patient churn completely. Lock in long-term loyalty with automated tier-based rewards and memberships.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+<!-- Nexcore Premium Feature Showcase -->
+<section class="r-feature-section" id="features">
+    
+    <div class="r-light-top">
+        <div class="r-grid-container">
+            <div class="r-grid-line"></div>
+            <div class="r-grid-line"></div>
+            <div class="r-grid-line"></div>
+            <div class="r-grid-line"></div>
+            <div class="r-grid-line"></div>
+        </div>
+
+        <div class="r-header-content">
+            <h2 class="r-title">Sell more treatments & packages</h2>
+            <div class="r-see-how">See how <br> <span class="r-arrow">↓</span></div>
+        </div>
+
+        <div class="r-split-navbar-wrapper">
+            <div class="r-nav-flank r-left-flank">
+                <button class="r-tab active" onclick="switchFeature('offers', this)">
+                    <span class="r-tab-icon">🤖</span> Automated Offers
+                </button>
+                <button class="r-tab" onclick="switchFeature('financing', this)">
+                    <span class="r-tab-icon">🏛️</span> Patient financing
+                </button>
+            </div>
+
+            <div class="r-nav-center-spacer"></div>
+
+            <div class="r-nav-flank r-right-flank">
+                <button class="r-tab" onclick="switchFeature('rewards', this)">
+                    <span class="r-tab-icon">🎁</span> Rewards
+                </button>
+                <button class="r-tab" onclick="switchFeature('memberships', this)">
+                    <span class="r-tab-icon">🎖️</span> Memberships
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="r-dark-bottom">
+        <div class="r-grid-container r-dark-grid">
+            <div class="r-grid-line"></div>
+            <div class="r-grid-line"></div>
+            <div class="r-grid-line"></div>
+            <div class="r-grid-line"></div>
+            <div class="r-grid-line"></div>
+        </div>
+
+        <div class="r-content-grid">
+            
+            <div class="r-panel r-left-panel fade-in" id="r-dynamic-left">
+                <h3 class="r-feature-heading">Sell more,<br>while you sleep</h3>
+                <p class="r-feature-desc">Let Nexcore’s Ai algorithm send your patients carefully targeted offers and deals based on their browsing behaviour and personal data.</p>
+            </div>
+
+            <div class="r-center-panel">
+                <div class="r-iframe-wrapper">
+                    <iframe 
+                        id="protopie-frame" 
+                        src="https://cloud.protopie.io/p/1f736750cc80f29339722e9a?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="r-right-panel fade-in" id="r-dynamic-right">
+                <div class="r-stat-block">
+                    <h4 class="r-stat-number">+30k</h4>
+                    <p class="r-stat-label">In-app offers that converted into sales</p>
+                </div>
+                <div class="r-stat-block">
+                    <h4 class="r-stat-number">+889%</h4>
+                    <p class="r-stat-label">Higher conversion rate than email & SMS</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<script>
+    const featureData = {
+        offers: {
+            title: "Sell more,<br>while you sleep",
+            desc: "Let Nexcore’s Ai algorithm send your patients carefully targeted offers and deals based on their browsing behaviour and personal data.",
+            iframeUrl: "https://cloud.protopie.io/p/1f736750cc80f29339722e9a?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1",
+            stats: `
+                <div class="r-stat-block">
+                    <h4 class="r-stat-number">+30k</h4>
+                    <p class="r-stat-label">In-app offers that converted into sales</p>
+                </div>
+                <div class="r-stat-block">
+                    <h4 class="r-stat-number">+889%</h4>
+                    <p class="r-stat-label">Higher conversion rate than email & SMS</p>
+                </div>`
+        },
+        financing: {
+            title: "Offer best-in-class<br>patient financing",
+            desc: "Sell more expensive package deals with no friction via our exclusive integration with Klarna.<br><br>Get paid the full amount upfront, all while Klarna handles the split payments.",
+            iframeUrl: "https://cloud.protopie.io/p/0c14d0a046e20ee0e79234fb?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1",
+            stats: `
+                <div class="r-stat-block">
+                    <h4 class="r-stat-number">+18%</h4>
+                    <p class="r-stat-label">Lift in purchasing conversions with treat now pay later, earn rewards</p>
+                </div>`
+        },
+        rewards: {
+            title: "Get repeat<br>purchases",
+            desc: "Lock all of your patients on a never-ending stream of loyalty and repeat purchases.<br><br>Capture more referrals, Google reviews, visits and late-night purchases.",
+            iframeUrl: "https://cloud.protopie.io/p/bbc5dfec037a92153d1995ce?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1",
+            stats: `
+                <div class="r-stat-block">
+                    <h4 class="r-stat-number">46%</h4>
+                    <p class="r-stat-label">Of first-time treatment purchases are driven by mobile rewards</p>
+                </div>
+                <div class="r-stat-block">
+                    <h4 class="r-stat-number">+39</h4>
+                    <p class="r-stat-label">Average amount of referrals in first 90 days</p>
+                </div>
+                <div class="r-stat-block">
+                    <h4 class="r-stat-number">+52</h4>
+                    <p class="r-stat-label">Average amount of Google reviews in first 90 days</p>
+                </div>`
+        },
+        memberships: {
+            title: "Earn recurring<br>revenue",
+            desc: "Nexcore is the ultimate End-to-end solution to sell membership better than any clinic; seamlessly managing recurring billing, monthly redeemable treatments and failed payments for your patients and staff.",
+            iframeUrl: "https://cloud.protopie.io/p/c130351e2ef62af898588c52?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1",
+            stats: `
+                <div class="r-stat-block">
+                    <h4 class="r-stat-number">44%</h4>
+                    <p class="r-stat-label">Marginal increase in average patient spend annually</p>
+                </div>
+                <div class="r-stat-block">
+                    <h4 class="r-stat-number">x3</h4>
+                    <p class="r-stat-label">Enterprise value from strong ARR</p>
+                </div>`
+        }
+    };
+
+    function switchFeature(tabId, element) {
+        document.querySelectorAll('.r-tab').forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
+
+        const leftBox = document.getElementById('r-dynamic-left');
+        const rightBox = document.getElementById('r-dynamic-right');
+        const iframe = document.getElementById('protopie-frame');
+
+        leftBox.classList.remove('fade-in');
+        rightBox.classList.remove('fade-in');
+
+        setTimeout(() => {
+            leftBox.innerHTML = `
+                <h3 class="r-feature-heading">${featureData[tabId].title}</h3>
+                <p class="r-feature-desc">${featureData[tabId].desc}</p>
+            `;
+            rightBox.innerHTML = featureData[tabId].stats;
+            iframe.src = featureData[tabId].iframeUrl;
+            
+            leftBox.classList.add('fade-in');
+            rightBox.classList.add('fade-in');
+        }, 200);
+    }
+</script>
+
+
+<!-- 3 Easy Steps Section -->
+    <section class="steps-section">
+        <div class="container">
+            <div class="steps-header">
+                <span class="accent-tag">No credit card needed</span>
+                <h2 class="section-title-light">3 Easy steps to build your app</h2>
+                <p class="section-subtitle-light">Free trial. Preview your app today.</p>
+            </div>
+
+            <div class="steps-grid">
+                <!-- Step 1 -->
+                <div class="step-card">
+                    <div class="step-image">
+                        <img src="https://framerusercontent.com/images/DO8OKFEwG4S82pSXJ1usIOtxaA.gif?scale-down-to=512&width=708&height=438" alt="AI Import">
+                        <div class="step-badge">Step 1</div>
+                    </div>
+                    <div class="step-content">
+                        <h3><span class="step-num">1.</span> AI imports your brand info</h3>
+                        <p>By scraping your website for logo, colours, services & pricing to create your app in record time.</p>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="step-card">
+                    <div class="step-image">
+                        <img src="https://framerusercontent.com/images/EgOjoZGUs19UqgskPIdrHZAjfkw.jpg?scale-down-to=512&width=649&height=402" alt="Receive App">
+                        <div class="step-badge">Step 2</div>
+                    </div>
+                    <div class="step-content">
+                        <h3><span class="step-num">2.</span> Receive your app, 24h later</h3>
+                        <p>You’ll have the ability to immediately download your app from the App & Google Play store on your phone!</p>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="step-card">
+                    <div class="step-image">
+                        <img src="https://framerusercontent.com/images/R6ys7b6LKdmTZzUZbGjtRWabtnU.gif?scale-down-to=512&width=708&height=438" alt="Passive Sales">
+                        <div class="step-badge">Step 3</div>
+                    </div>
+                    <div class="step-content">
+                        <h3><span class="step-num">3.</span> Start making passive sales!</h3>
+                        <p>Introduce the app to your patients and start capturing treatment sales while you sleep.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reviews / Social Proof Section -->
+    <section class="reviews-section" id="reviews">
+        <div class="container">
+            <div class="reviews-header">
+                <div class="review-intro">
+                    <span class="quote-mark">“</span>
+                    <h2 class="section-title-white">Addictive to my patients</h2>
+                    <p class="author-name">- Dr. Laurier</p>
+                    <p class="review-desc">Exceed patient expectations, systematically and automatically. Retain patients. Sell more. Capture high quality referrals.</p>
+                </div>
+                <div class="slider-controls">
+                    <button class="control-btn prev">←</button>
+                    <button class="control-btn next">→</button>
+                </div>
+            </div>
+
+            <div class="reviews-grid">
+                <!-- Review Card 1 -->
+                <div class="review-card">
+                    <div class="review-img-box">
+                        <img src="https://framerusercontent.com/images/NyfJywqOjT3Ln9QoRfWLERyaY44.gif?width=236&height=146" alt="Clinic Interior">
+                        <span class="category-tag">Memberships</span>
+                    </div>
+                    <div class="review-body">
+                        <p class="review-text">"Voice notes from my practitioner made me feel like a VIP! The engagement is unreal."</p>
+                        <div class="reviewer-info">
+                            <div class="avatar">AS</div>
+                            <div>
+                                <div class="name">Aaliyah S. <span class="location">of Bodysculpting UK</span></div>
+                                <div class="verified">Verified patient review</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 2 -->
+                <div class="review-card">
+                    <div class="review-img-box">
+                        <img src="https://framerusercontent.com/images/2eOFVQQHYR1JPyKCtMuD5pt2bA.svg?width=177&height=109" alt="Treatment">
+                        <span class="category-tag">Financing</span>
+                    </div>
+                    <div class="review-body">
+                        <p class="review-text">"Super easy interface that makes membership management a breeze for our front desk."</p>
+                        <div class="reviewer-info">
+                            <div class="avatar">SM</div>
+                            <div>
+                                <div class="name">SLA Medical <span class="location">Manchester, UK</span></div>
+                                <div class="verified">Verified clinic review</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review Card 3 -->
+                <div class="review-card">
+                    <div class="review-img-box">
+                        <img src="https://framerusercontent.com/images/t8YiU6p1xTjGlPWb1tUE9CQJR0.svg?width=177&height=109" alt="Doctor">
+                        <span class="category-tag">Rewards</span>
+                    </div>
+                    <div class="review-body">
+                        <p class="review-text">"The points & rewards made me guilty of buying £3,000 packages! I love the gamification."</p>
+                        <div class="reviewer-info">
+                            <div class="avatar">MJ</div>
+                            <div>
+                                <div class="name">May J. <span class="location">of Crystalline Clinic</span></div>
+                                <div class="verified">Verified patient review</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA Section -->
+ 
+
+    <!-- Practices Steps Section -->
+    <section class="practices-steps">
+        <div class="practices-steps_container">
+            <h2 class="practices-steps_title">Practices like yours make sales <span class="text-gradient">7 days a week</span>, at all hours of the day.</h2>
+            <p class="practices-steps_desc">It's time to make growing your revenue easy.</p>
+
+            <div class="practices-steps_grid">
+                <div class="practices-steps_card">
+                    <div class="practices-steps_card-index">
+                        <span class="practices-steps_number">01</span>
+                    </div>
+                    <div class="practices-steps_card-icon">
+                        <img src="https://assets.repeatmd.com/f/1019051/63x62/99f5102688/book-a-demo-icon.svg" alt="Book a Demo">
+                    </div>
+                    <h3 class="practices-steps_card-title">Book a Demo</h3>
+                    <p class="practices-steps_card-text">See how top practices use RepeatMD to sell memberships, products, and high-margin treatments automatically.</p>
+                </div>
+
+                <div class="practices-steps_card">
+                    <div class="practices-steps_card-index">
+                        <span class="practices-steps_number">02</span>
+                    </div>
+                    <div class="practices-steps_card-icon">
+                        <img src="https://assets.repeatmd.com/f/1019051/62x62/2ead344a45/launch-your-app-icon.svg" alt="Launch Your App">
+                    </div>
+                    <h3 class="practices-steps_card-title">Launch Your App</h3>
+                    <p class="practices-steps_card-text">We'll build your branded app with rewards, AI treatment advisors, and 24/7 shopping in 30 days or less.</p>
+                </div>
+
+                <div class="practices-steps_card">
+                    <div class="practices-steps_card-index">
+                        <span class="practices-steps_number">03</span>
+                    </div>
+                    <div class="practices-steps_card-icon">
+                        <img src="https://assets.repeatmd.com/f/1019051/62x62/a5066b211c/watch-sales-grow-icon.svg" alt="Watch Sales Grow">
+                    </div>
+                    <h3 class="practices-steps_card-title">Watch Sales Grow</h3>
+                    <p class="practices-steps_card-text">Your app handles the selling while you focus on your patients.</p>
+                </div>
+            </div>
+
+            <div class="practices-steps_btn-wrap">
+                <a href="#" class="practices-steps_btn">Book a Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prefooter CTA - Sell More with Nexcore -->
+    <section class="prefooter-cta">
+        <div class="prefooter-cta_overlay"></div>
+        <div class="prefooter-cta_content">
+            <h2 class="prefooter-cta_title">Sell more with <span class="text-gradient">Nexcore</span></h2>
+            <p class="prefooter-cta_desc">Your branded app works 24/7 — turning browsers into buyers while you sleep.</p>
+            <a href="#" class="prefooter-cta_btn">Book a Demo</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-text">Nexcore</div>
+                <p>The future of aesthetic practice growth.</p>
+            </div>
+            <div class="footer-links">
+                <div class="link-col">
+                    <h4>Product</h4>
+                    <a href="#">Features</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Showcase</a>
+                </div>
+                <div class="link-col">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="link-col">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Nexcore Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const header = document.querySelector('.header-container');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+            if (scrollY > window.innerHeight * 0.6) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            lastScroll = scrollY;
+        });
+
+        // Hamburger menu toggle
+        const hamburger = document.querySelector('.hamburger');
+        const mobileNav = document.querySelector('.mobile-nav');
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            mobileNav.classList.toggle('open');
+            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
+        });
+
+        // Close mobile nav on link click
+        mobileNav.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                mobileNav.classList.remove('open');
+                document.body.style.overflow = '';
+            });
+        });
+    </script>
+
+</body>
+</html>
