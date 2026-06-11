@@ -2,504 +2,979 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Nexcore — Elevate Your Practice</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- GSAP & Lenis for Advanced Animations -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <style>
+        /* --- Global Resets & Typography --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #000000;
+            color: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            width: 100%;
+        }
+
+  /* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #0b0b0c;
+}
+::-webkit-scrollbar-thumb {
+    background: #979797;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #b3b2b2;
+}
+
+        /* --- Floating Header Styling --- */
+        .main-header {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 1280px;
+            z-index: 1000;
+            opacity: 0;
+            animation: slideDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+.header-container {
+    /* White Glass Effect */
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    
+    /* Shape & Layout */
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 32px;
+    
+    /* Depth */
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header-container:hover {
+    background: rgb(255, 255, 255);
+    transform: translateY(-2px);
+    box-shadow: 0 15px 50px rgb(255, 255, 255);
+}
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 24px;
+            background: linear-gradient(135deg, #000 0%, #333 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links { display: flex; gap: 32px; }
+        .nav-links a {
+            text-decoration: none;
+            color: rgb(0, 0, 0);
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -6px;
+            left: 0;
+            background-color: #000000;
+            transition: width 0.4s ease;
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        .header-actions { display: flex; gap: 24px; align-items: center; }
+        .btn-login {
+            text-decoration: none;
+            color: #000000;
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+        .btn-login:hover { opacity: 0.6; }
+
+
+        
+ /* --- Magnetic Button Styling --- */
+.btn-magnetic {
+    text-decoration: none;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    padding: 12px 24px;
+    border-radius: 100px;
+    border: 1px solid #000000;
+    
+    /* Positioning & Animation Setup */
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    will-change: transform;
+    
+    /* The transition handles the "snap back" when mouse leaves */
+    transition: transform 0.2s cubic-bezier(0.25, 1, 0.5, 1); 
+}
+
+/* Shine Effect (Kept from original) */
+.btn-magnetic::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.2), transparent);
+    transform: translateX(-100%);
+    transition: 0.5s;
+    pointer-events: none; /* Ensure clicks pass through */
+}
+
+.btn-magnetic:hover::before {
+    transform: translateX(100%);
+}
+
+/* Optional: Slight scale on hover for extra feel */
+.btn-magnetic:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Click effect */
+.btn-magnetic:active {
+    transform: scale(0.95) !important;
+}
+
+
+
+
+
+
+
+
+
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #000000;
+            border-radius: 2px;
+            transition: all 0.4s ease;
+        }
+        .hamburger.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+        .hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(40px);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            z-index: 999;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .mobile-nav.open { opacity: 1; pointer-events: all; }
+        .mobile-nav a {
+            text-decoration: none;
+            color: #000000;
+            font-size: 4vw;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+        .mobile-nav a:hover { color: #E12C6A; }
+
+        /* --- Hero Section --- */
+        .hero-section {
+            position: relative;
+            min-height: 100vh;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 100%),
+                url('imgs/glass-flower-hero-v3.avif') no-repeat center center;
+            background-size: cover;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 40px 60px;
+        }
+        .hero-wrapper { max-width: 1280px; width: 100%; margin: 0 auto; }
+        .hero-content { max-width: 800px; }
+        .hero-content h1 {
+            font-size: 64px;
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -2px;
+            color: #ffffff;
+            margin-bottom: 24px;
+        }
+        .text-gradient-hero {
+            background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-content p {
+            font-size: 20px;
+            font-weight: 300;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        .btn-cta-outline {
+            display: inline-block;
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            padding: 18px 40px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 100px;
+            transition: all 0.4s ease;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(5px);
+        }
+        .btn-cta-outline:hover {
+            background-color: #ffffff;
+            color: #000000;
+            transform: translateY(-4px);
+        }
+
+        /* --- Value Bar --- */
+        .value-bar-section {
+            background-color: #050505;
+            padding: 120px 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .value-bar-container { max-width: 1280px; margin: 0 auto; }
+        .value-section-title {
+            text-align: center;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 80px;
+        }
+        .value-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+        }
+        .value-column { padding: 0 40px; text-align: center; }
+        .central-column {
+            border-left: 1px solid rgba(255,255,255,0.08);
+            border-right: 1px solid rgba(255,255,255,0.08);
+        }
+        .metric-number {
+            font-size: 80px;
+            font-weight: 200;
+            line-height: 1;
+            letter-spacing: -3px;
+            background: linear-gradient(to bottom, #fff, #888);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+        .metric-label {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffffff;
+            margin-bottom: 16px;
+        }
+        .metric-desc {
+            font-size: 14px;
+            line-height: 1.7;
+            color: #555;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        /* --- Feature Showcase (Fixed iframe + phone border) --- */
+        .r-feature-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        .r-grid-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1200px;
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            padding: 0 40px;
+        }
+        .r-grid-line {
+            width: 1px;
+            height: 100%;
+            background-color: rgba(255,255,255,0.03);
+            border-right: 1px dashed rgba(255,255,255,0.03);
+        }
+        .r-light-top {
+            background-color: #ffffff;
+            position: relative;
+            padding-top: 100px;
+            text-align: center;
+            z-index: 1;
+        }
+        .r-title {
+            font-size: 48px;
+            font-weight: 600;
+            color: #0b0b0c;
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
+        }
+        .r-see-how {
+            font-size: 16px;
+            font-weight: 500;
+            color: #888;
+            margin-bottom: 60px;
+            cursor: pointer;
+        }
+        .r-split-navbar-wrapper {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-bottom: 1px solid #eee;
+        }
+        .r-nav-flank { display: flex; flex: 1; align-items: center; }
+        .r-left-flank { justify-content: flex-start; gap: 40px; }
+        .r-right-flank { justify-content: flex-end; gap: 40px; }
+        .r-nav-center-spacer { width: 380px; flex-shrink: 0; }
+        .r-tab {
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            padding: 24px 10px;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 600;
+            color: #999;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            white-space: nowrap;
+        }
+        .r-tab-icon { font-size: 18px; filter: grayscale(100%); opacity: 0.5; }
+        .r-tab:hover { color: #000; }
+        .r-tab.active {
+            color: #000000;
+            border-bottom: 3px solid #E12C6A;
+        }
+        .r-tab.active .r-tab-icon { filter: grayscale(0%); opacity: 1; }
+        .r-dark-bottom {
+            background-color: #121214;
+            position: relative;
+            padding: 80px 0 120px;
+        }
+        .r-content-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 380px 1fr;
+            gap: 60px;
+            padding: 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+        .r-left-panel { padding-top: 60px; text-align: left; }
+        .r-feature-heading {
+            font-size: 36px;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.2;
+            margin-bottom: 24px;
+        }
+        .r-feature-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #888;
+            max-width: 340px;
+        }
+        .r-stat-block {
+            border-left: 2px solid rgba(255,255,255,0.1);
+            padding-left: 24px;
+            margin-bottom: 30px;
+        }
+        .r-stat-number {
+            font-size: 42px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 8px;
+        }
+        .r-stat-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #666;
+            max-width: 280px;
+        }
+        /* --- FIXED: Perfect iPhone border + iframe sizing --- */
+        .r-center-panel {
+            display: flex;
+            justify-content: center;
+            margin-top: -140px;
+            z-index: 10;
+            position: relative;
+        }
+        .r-iframe-wrapper {
+            width: 100%;
+            max-width: 380px;
+            aspect-ratio: 380 / 770;
+            position: relative;
+            filter: drop-shadow(0 40px 80px rgba(0,0,0,0.8));
+            border-radius: 48px;
+            overflow: hidden;
+            border: 8px solid #222;
+            background: #000;
+        }
+        .r-iframe-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 40px;
+            background: #121214;
+        }
+        .fade-in {
+            animation: simpleTabFade 0.4s ease forwards;
+        }
+        @keyframes simpleTabFade {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- Steps Section (FIXED images) --- */
+        .steps-section {
+            background-color: #ffffff;
+            padding: 140px 0;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+        .steps-header { text-align: center; margin-bottom: 80px; }
+        .accent-tag {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #b5893d;
+            border-left: 3px solid #b5893d;
+            padding-left: 12px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .section-title-light {
+            font-size: 44px;
+            font-weight: 600;
+            color: #0b0b0c;
+            letter-spacing: -1.5px;
+        }
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .step-card {
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.4s ease;
+        }
+        .step-card:hover { transform: translateY(-10px); }
+        .step-image {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 24px;
+            background-color: #f7f7f9;
+        }
+        .step-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+        .step-card:hover .step-image img { transform: scale(1.04); }
+        .step-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(10px);
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 20px;
+            color: #0b0b0c;
+        }
+        .step-content h3 {
+            font-size: 20px;
+            font-weight: 600;
+            color: #0b0b0c;
+            margin-bottom: 12px;
+        }
+        .step-num { color: #b5893d; font-weight: 800; margin-right: 4px; }
+        .step-content p { font-size: 15px; line-height: 1.6; color: #555; }
+
+        /* --- Reviews Section (Fixed delay issue) --- */
+        .reviews-section {
+            background-color: #0b0b0c;
+            padding: 140px 0;
+        }
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 80px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding-bottom: 40px;
+        }
+        .review-intro { max-width: 600px; }
+        .quote-mark {
+            font-size: 80px;
+            font-family: serif;
+            color: #b5893d;
+            line-height: 0.1;
+            display: block;
+            margin-bottom: 10px;
+        }
+        .section-title-white {
+            font-size: 46px;
+            font-weight: 500;
+            color: #ffffff;
+            letter-spacing: -1.5px;
+        }
+        .author-name {
+            font-size: 16px;
+            font-style: italic;
+            color: #b5893d;
+            margin: 8px 0 24px;
+        }
+        .review-desc { font-size: 16px; line-height: 1.6; color: #777; }
+        .slider-controls { display: flex; gap: 12px; }
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .control-btn:hover { background: #fff; color: #000; transform: rotate(90deg); }
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .review-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .review-card:hover { transform: translateY(-8px); background: rgba(255,255,255,0.05); }
+        .review-img-box {
+            position: relative;
+            width: 100%;
+            height: 260px;
+            overflow: hidden;
+            background: #1a1a1c;
+        }
+        .review-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+        .review-card:hover .review-img-box img { transform: scale(1.05); }
+        .category-tag {
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: #eedcb3;
+            color: #5c461a;
+            padding: 6px 12px;
+            font-size: 10px;
+            font-weight: 800;
+            border-radius: 6px;
+        }
+        .review-body { padding: 28px; }
+        .review-text {
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.6;
+            color: #ffffff;
+            margin-bottom: 30px;
+        }
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding-top: 16px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #333, #111);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+        .name { font-size: 14px; font-weight: 600; color: #fff; }
+        .location { color: #666; font-size: 13px; margin-left: 2px; }
+        .verified { font-size: 11px; font-weight: 600; color: #4cd137; margin-top: 4px; display: block; }
+
+        /* --- Practices Steps --- */
+        .practices-steps {
+            background: linear-gradient(180deg, #0b0b0c 0%, #050505 100%);
+            padding: 160px 40px 120px;
+            position: relative;
+        }
+        .practices-steps_container { max-width: 1100px; margin: 0 auto; }
+        .practices-steps_title {
+            font-size: 48px;
+            font-weight: 500;
+            line-height: 1.15;
+            letter-spacing: -1.5px;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 20px;
+            color: #fff;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #E12C6A, #6B5BFF);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .practices-steps_desc {
+            font-size: 18px;
+            color: #777;
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .practices-steps_grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+        .practices-steps_card {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 24px;
+            padding: 50px 35px 40px;
+            text-align: center;
+            transition: all 0.5s ease;
+        }
+        .practices-steps_card:hover {
+            transform: translateY(-12px);
+            border-color: rgba(225,44,106,0.3);
+            background: rgba(255,255,255,0.05);
+        }
+        .practices-steps_number {
+            font-size: 13px;
+            font-weight: 800;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 6px 18px;
+            border-radius: 30px;
+        }
+        .practices-steps_card-icon {
+            width: 70px;
+            height: 70px;
+            margin: 24px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.03);
+            border-radius: 20px;
+            padding: 15px;
+        }
+        .practices-steps_card-icon img { width: 100%; height: 100%; object-fit: contain; }
+        .practices-steps_card-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 14px;
+        }
+        .practices-steps_card-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #666;
+            max-width: 280px;
+            margin: 0 auto;
+        }
+        .practices-steps_btn {
+            display: inline-block;
+            text-decoration: none;
+            color: #fff;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding: 20px 50px;
+            border-radius: 100px;
+            background: linear-gradient(135deg, #E12C6A, #c91c5a);
+            transition: all 0.4s;
+        }
+        .practices-steps_btn:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(225,44,106,0.4); }
+        .prefooter-cta {
+            position: relative;
+            height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+             background: url('https://repeatmd.com/_next/image?url=https%3A%2F%2Fassets.repeatmd.com%2Ff%2F1019051%2F2884x909%2Fc9ad893039%2Fprefooter-min.jpg&w=1920&q=75') no-repeat center center;
+            background-attachment: fixed;
+        }
+        .prefooter-cta_overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.357), rgba(0, 0, 0, 0.117));
+            z-index: 1;
+        }
+        .prefooter-cta_content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 700px;
+            padding: 0 40px;
+        }
+        .prefooter-cta_title {
+            font-size: 56px;
+            font-weight: 500;
+            letter-spacing: -2px;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+        .prefooter-cta_desc {
+            font-size: 20px;
+            font-weight: 300;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 48px;
+        }
+        .prefooter-cta_btn {
+            display: inline-block;
+            background: #fff;
+            color: #000;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            padding: 20px 50px;
+            border-radius: 100px;
+            text-decoration: none;
+        }
+        .main-footer {
+            background-color: #050505;
+            padding: 100px 40px 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 80px;
+        }
+        .footer-links { display: flex; gap: 80px; }
+        .link-col h4 { color: #fff; font-size: 14px; margin-bottom: 24px; }
+        .link-col a {
+            display: block;
+            color: #666;
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 14px;
+        }
+        .footer-bottom { text-align: center; color: #444; font-size: 12px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); }
+        @keyframes slideDown {
+            from { transform: translate(-50%, -100%); opacity: 0; }
+            to { transform: translate(-50%, 0); opacity: 1; }
+        }
+        @media (max-width: 1024px) {
+            .nav-links, .header-actions { display: none; }
+            .hamburger { display: flex; }
+            .mobile-nav { display: flex; }
+            .value-grid { grid-template-columns: 1fr; gap: 60px; }
+            .central-column { border: none; border-top: 1px solid rgba(255,255,255,0.1); border-bottom: 1px solid rgba(255,255,255,0.1); }
+            .r-split-navbar-wrapper { flex-direction: column; align-items: center; gap: 20px; }
+            .r-left-flank, .r-right-flank { justify-content: center; flex-wrap: wrap; }
+            .r-nav-center-spacer { display: none; }
+            .r-content-grid { grid-template-columns: 1fr; gap: 60px; }
+            .r-center-panel { margin-top: 0; order: -1; margin-bottom: 40px; }
+            .r-iframe-wrapper { max-width: 340px; }
+            .steps-grid, .reviews-grid, .practices-steps_grid { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 42px; }
+            .footer-container { flex-direction: column; text-align: center; gap: 40px; }
+        }
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 36px; }
+            .r-title { font-size: 36px; }
+            .r-iframe-wrapper { max-width: 300px; aspect-ratio: 300 / 600; }
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Floating Centered Navbar -->
     <header class="main-header">
         <div class="header-container">
             <div class="logo-text">Nexcore</div>
             <nav class="nav-links">
-                <a href="#">Product</a>
-                <a href="#">Solutions</a>
-                <a href="#">Who We Serve</a>
-                <a href="#">Resources</a>
-                <a href="#">Company</a>
-                <a href="#">Pricing</a>
-                <a href="#">Reviews</a>
+                <a href="#">Product</a><a href="#">Solutions</a><a href="#">Who We Serve</a>
+                <a href="#">Resources</a><a href="#">Company</a>
             </nav>
-            <div class="header-actions">
-                <a href="#" class="btn-login">Log in</a>
-                <a href="#" class="btn-cta-filled">BOOK A DEMO</a>
-            </div>
-            <button class="hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-        <nav class="mobile-nav">
-            <a href="#">Product</a>
-            <a href="#">Solutions</a>
-            <a href="#">Who We Serve</a>
-            <a href="#">Resources</a>
-            <a href="#">Company</a>
-            <a href="#">Pricing</a>
-            <a href="#">Reviews</a>
-            <div class="mobile-nav-actions">
-                <a href="#" class="btn-login">Log in</a>
-                <a href="#" class="btn-cta-filled">BOOK A DEMO</a>
-            </div>
-        </nav>
-    </header>
-
-    <!-- Hero Section with Glass Flower Background -->
-    <section class="hero-section">
-        <div class="hero-wrapper">
-            <div class="hero-content">
-                <h1>What if your practice could grow <span class="break-line">while you sleep?</span></h1>
-                <p>We built a platform that combines the power of rewards, AI, and 24/7 shopping all inside your own branded app.</p>
-                <a href="#" class="btn-cta-outline">BOOK A DEMO</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Value Bar Section -->
-    <section class="value-bar-section">
-        <div class="value-bar-container">
-            <h2 class="value-section-title">Engineered for Premium Aesthetic Practices</h2>
-            <div class="value-grid">
-                <div class="value-column">
-                    <div class="metric-number">+889%</div>
-                    <div class="metric-label">Higher Conversion Rate</div>
-                    <div class="metric-desc">Hyper-targeted in-app offers trigger based on exact patient browsing behavior, outperforming traditional marketing.</div>
-                </div>
-                <div class="value-column central-column">
-                    <div class="metric-number">24/7</div>
-                    <div class="metric-label">Automated Monetization</div>
-                    <div class="metric-desc">Your custom branded practice app runs continuously, converting passive interest into treatment sales while you sleep.</div>
-                </div>
-                <div class="value-column">
-                    <div class="metric-number">0%</div>
-                    <div class="metric-label">Leaked Patient Value</div>
-                    <div class="metric-desc">Eliminate patient churn completely. Lock in long-term loyalty with automated tier-based rewards and memberships.</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-<!-- Nexcore Premium Feature Showcase -->
-<section class="r-feature-section" id="features">
-    
-    <div class="r-light-top">
-        <div class="r-grid-container">
-            <div class="r-grid-line"></div>
-            <div class="r-grid-line"></div>
-            <div class="r-grid-line"></div>
-            <div class="r-grid-line"></div>
-            <div class="r-grid-line"></div>
+            <div class="header-actions"><a href="https://nexcore-app.com/auth/signin" target="_parent" class="btn-login" target="_parent">Log in</a><a href="#" class="btn-magnetic">BOOK A DEMO</a></div>
+            <button class="hamburger"><span></span><span></span><span></span></button>
         </div>
 
-        <div class="r-header-content">
-            <h2 class="r-title">Sell more treatments & packages</h2>
-            <div class="r-see-how">See how <br> <span class="r-arrow">↓</span></div>
-        </div>
 
-        <div class="r-split-navbar-wrapper">
-            <div class="r-nav-flank r-left-flank">
-                <button class="r-tab active" onclick="switchFeature('offers', this)">
-                    <span class="r-tab-icon">🤖</span> Automated Offers
-                </button>
-                <button class="r-tab" onclick="switchFeature('financing', this)">
-                    <span class="r-tab-icon">🏛️</span> Patient financing
-                </button>
-            </div>
+        <script>
+    // Select all elements with the magnetic class
+    const magneticButtons = document.querySelectorAll('.btn-magnetic');
 
-            <div class="r-nav-center-spacer"></div>
-
-            <div class="r-nav-flank r-right-flank">
-                <button class="r-tab" onclick="switchFeature('rewards', this)">
-                    <span class="r-tab-icon">🎁</span> Rewards
-                </button>
-                <button class="r-tab" onclick="switchFeature('memberships', this)">
-                    <span class="r-tab-icon">🎖️</span> Memberships
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div class="r-dark-bottom">
-        <div class="r-grid-container r-dark-grid">
-            <div class="r-grid-line"></div>
-            <div class="r-grid-line"></div>
-            <div class="r-grid-line"></div>
-            <div class="r-grid-line"></div>
-            <div class="r-grid-line"></div>
-        </div>
-
-        <div class="r-content-grid">
+    magneticButtons.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
             
-            <div class="r-panel r-left-panel fade-in" id="r-dynamic-left">
-                <h3 class="r-feature-heading">Sell more,<br>while you sleep</h3>
-                <p class="r-feature-desc">Let Nexcore’s Ai algorithm send your patients carefully targeted offers and deals based on their browsing behaviour and personal data.</p>
-            </div>
-
-            <div class="r-center-panel">
-                <div class="r-iframe-wrapper">
-                    <iframe 
-                        id="protopie-frame" 
-                        src="https://cloud.protopie.io/p/1f736750cc80f29339722e9a?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-            </div>
-
-            <div class="r-right-panel fade-in" id="r-dynamic-right">
-                <div class="r-stat-block">
-                    <h4 class="r-stat-number">+30k</h4>
-                    <p class="r-stat-label">In-app offers that converted into sales</p>
-                </div>
-                <div class="r-stat-block">
-                    <h4 class="r-stat-number">+889%</h4>
-                    <p class="r-stat-label">Higher conversion rate than email & SMS</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<script>
-    const featureData = {
-        offers: {
-            title: "Sell more,<br>while you sleep",
-            desc: "Let Nexcore’s Ai algorithm send your patients carefully targeted offers and deals based on their browsing behaviour and personal data.",
-            iframeUrl: "https://cloud.protopie.io/p/1f736750cc80f29339722e9a?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1",
-            stats: `
-                <div class="r-stat-block">
-                    <h4 class="r-stat-number">+30k</h4>
-                    <p class="r-stat-label">In-app offers that converted into sales</p>
-                </div>
-                <div class="r-stat-block">
-                    <h4 class="r-stat-number">+889%</h4>
-                    <p class="r-stat-label">Higher conversion rate than email & SMS</p>
-                </div>`
-        },
-        financing: {
-            title: "Offer best-in-class<br>patient financing",
-            desc: "Sell more expensive package deals with no friction via our exclusive integration with Klarna.<br><br>Get paid the full amount upfront, all while Klarna handles the split payments.",
-            iframeUrl: "https://cloud.protopie.io/p/0c14d0a046e20ee0e79234fb?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1",
-            stats: `
-                <div class="r-stat-block">
-                    <h4 class="r-stat-number">+18%</h4>
-                    <p class="r-stat-label">Lift in purchasing conversions with treat now pay later, earn rewards</p>
-                </div>`
-        },
-        rewards: {
-            title: "Get repeat<br>purchases",
-            desc: "Lock all of your patients on a never-ending stream of loyalty and repeat purchases.<br><br>Capture more referrals, Google reviews, visits and late-night purchases.",
-            iframeUrl: "https://cloud.protopie.io/p/bbc5dfec037a92153d1995ce?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1",
-            stats: `
-                <div class="r-stat-block">
-                    <h4 class="r-stat-number">46%</h4>
-                    <p class="r-stat-label">Of first-time treatment purchases are driven by mobile rewards</p>
-                </div>
-                <div class="r-stat-block">
-                    <h4 class="r-stat-number">+39</h4>
-                    <p class="r-stat-label">Average amount of referrals in first 90 days</p>
-                </div>
-                <div class="r-stat-block">
-                    <h4 class="r-stat-number">+52</h4>
-                    <p class="r-stat-label">Average amount of Google reviews in first 90 days</p>
-                </div>`
-        },
-        memberships: {
-            title: "Earn recurring<br>revenue",
-            desc: "Nexcore is the ultimate End-to-end solution to sell membership better than any clinic; seamlessly managing recurring billing, monthly redeemable treatments and failed payments for your patients and staff.",
-            iframeUrl: "https://cloud.protopie.io/p/c130351e2ef62af898588c52?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1",
-            stats: `
-                <div class="r-stat-block">
-                    <h4 class="r-stat-number">44%</h4>
-                    <p class="r-stat-label">Marginal increase in average patient spend annually</p>
-                </div>
-                <div class="r-stat-block">
-                    <h4 class="r-stat-number">x3</h4>
-                    <p class="r-stat-label">Enterprise value from strong ARR</p>
-                </div>`
-        }
-    };
-
-    function switchFeature(tabId, element) {
-        document.querySelectorAll('.r-tab').forEach(btn => btn.classList.remove('active'));
-        element.classList.add('active');
-
-        const leftBox = document.getElementById('r-dynamic-left');
-        const rightBox = document.getElementById('r-dynamic-right');
-        const iframe = document.getElementById('protopie-frame');
-
-        leftBox.classList.remove('fade-in');
-        rightBox.classList.remove('fade-in');
-
-        setTimeout(() => {
-            leftBox.innerHTML = `
-                <h3 class="r-feature-heading">${featureData[tabId].title}</h3>
-                <p class="r-feature-desc">${featureData[tabId].desc}</p>
-            `;
-            rightBox.innerHTML = featureData[tabId].stats;
-            iframe.src = featureData[tabId].iframeUrl;
+            // Calculate mouse position relative to the button's center
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
             
-            leftBox.classList.add('fade-in');
-            rightBox.classList.add('fade-in');
-        }, 200);
-    }
+            // Move the button towards the mouse
+            // Divide by 3 or 4 to control the strength (lower number = stronger pull)
+            btn.style.transform = `translate(${x / 3}px, ${y / 3}px)`;
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            // Snap back to center smoothly when mouse leaves
+            btn.style.transform = 'translate(0, 0)';
+        });
+    });
 </script>
+    </header>
+    <div class="mobile-nav"><a href="#">Product</a><a href="#">Solutions</a><a href="#">Who We Serve</a><a href="#">Resources</a><a href="#">Company</a><div class="mobile-nav-actions"><a href="https://nexcore-app.com/auth/signin" target="_parent" class="btn-login">Log in</a><a href="#" class="btn-magnetic">BOOK A DEMO</a></div></div>
 
-
-<!-- 3 Easy Steps Section -->
-    <section class="steps-section">
-        <div class="container">
-            <div class="steps-header">
-                <span class="accent-tag">No credit card needed</span>
-                <h2 class="section-title-light">3 Easy steps to build your app</h2>
-                <p class="section-subtitle-light">Free trial. Preview your app today.</p>
-            </div>
-
-            <div class="steps-grid">
-                <!-- Step 1 -->
-                <div class="step-card">
-                    <div class="step-image">
-                        <img src="https://framerusercontent.com/images/DO8OKFEwG4S82pSXJ1usIOtxaA.gif?scale-down-to=512&width=708&height=438" alt="AI Import">
-                        <div class="step-badge">Step 1</div>
-                    </div>
-                    <div class="step-content">
-                        <h3><span class="step-num">1.</span> AI imports your brand info</h3>
-                        <p>By scraping your website for logo, colours, services & pricing to create your app in record time.</p>
-                    </div>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="step-card">
-                    <div class="step-image">
-                        <img src="https://framerusercontent.com/images/EgOjoZGUs19UqgskPIdrHZAjfkw.jpg?scale-down-to=512&width=649&height=402" alt="Receive App">
-                        <div class="step-badge">Step 2</div>
-                    </div>
-                    <div class="step-content">
-                        <h3><span class="step-num">2.</span> Receive your app, 24h later</h3>
-                        <p>You’ll have the ability to immediately download your app from the App & Google Play store on your phone!</p>
-                    </div>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="step-card">
-                    <div class="step-image">
-                        <img src="https://framerusercontent.com/images/R6ys7b6LKdmTZzUZbGjtRWabtnU.gif?scale-down-to=512&width=708&height=438" alt="Passive Sales">
-                        <div class="step-badge">Step 3</div>
-                    </div>
-                    <div class="step-content">
-                        <h3><span class="step-num">3.</span> Start making passive sales!</h3>
-                        <p>Introduce the app to your patients and start capturing treatment sales while you sleep.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <section class="hero-section">
+        <div class="hero-wrapper"><div class="hero-content"><h1>What if your practice could grow <br><span class="text-gradient-hero">while you sleep?</span></h1><p>We built a platform that combines the power of rewards, AI, and 24/7 shopping all inside your own branded app.</p><a href="#" class="btn-cta-outline">BOOK A DEMO</a></div></div>
     </section>
 
-    <!-- Reviews / Social Proof Section -->
-    <section class="reviews-section" id="reviews">
-        <div class="container">
-            <div class="reviews-header">
-                <div class="review-intro">
-                    <span class="quote-mark">“</span>
-                    <h2 class="section-title-white">Addictive to my patients</h2>
-                    <p class="author-name">- Dr. Laurier</p>
-                    <p class="review-desc">Exceed patient expectations, systematically and automatically. Retain patients. Sell more. Capture high quality referrals.</p>
-                </div>
-                <div class="slider-controls">
-                    <button class="control-btn prev">←</button>
-                    <button class="control-btn next">→</button>
-                </div>
-            </div>
+    <section class="value-bar-section"><div class="value-bar-container"><h2 class="value-section-title">Engineered for Premium Aesthetic Practices</h2><div class="value-grid"><div class="value-column central-column"><div class="metric-number">+889%</div><div class="metric-label">Higher Conversion Rate</div><p class="metric-desc">Hyper-targeted in-app offers trigger based on exact patient browsing behavior.</p></div><div class="value-column central-column"><div class="metric-number">24/7</div><div class="metric-label">Automated Monetization</div><p class="metric-desc">Your custom branded practice app runs continuously, converting passive interest into treatment sales while you sleep.</p></div><div class="value-column central-column"><div class="metric-number">0%</div><div class="metric-label">Leaked Patient Value</div><p class="metric-desc">Eliminate patient churn completely. Lock in long-term loyalty with automated tier-based rewards.</p></div></div></div></section>
 
-            <div class="reviews-grid">
-                <!-- Review Card 1 -->
-                <div class="review-card">
-                    <div class="review-img-box">
-                        <img src="https://framerusercontent.com/images/NyfJywqOjT3Ln9QoRfWLERyaY44.gif?width=236&height=146" alt="Clinic Interior">
-                        <span class="category-tag">Memberships</span>
-                    </div>
-                    <div class="review-body">
-                        <p class="review-text">"Voice notes from my practitioner made me feel like a VIP! The engagement is unreal."</p>
-                        <div class="reviewer-info">
-                            <div class="avatar">AS</div>
-                            <div>
-                                <div class="name">Aaliyah S. <span class="location">of Bodysculpting UK</span></div>
-                                <div class="verified">Verified patient review</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <section class="r-feature-section"><div class="r-light-top"><div class="r-grid-container"><div class="r-grid-line"></div><div class="r-grid-line"></div><div class="r-grid-line"></div><div class="r-grid-line"></div><div class="r-grid-line"></div></div><div class="r-header-content"><h2 class="r-title">Sell more treatments & packages</h2><div class="r-see-how">See how <br><span class="r-arrow">↓</span></div></div><div class="r-split-navbar-wrapper"><div class="r-nav-flank r-left-flank"><button class="r-tab active" onclick="switchFeature('offers', this)"><span class="r-tab-icon">🤖</span> Automated Offers</button><button class="r-tab" onclick="switchFeature('financing', this)"><span class="r-tab-icon">🏛️</span> Patient financing</button></div><div class="r-nav-center-spacer"></div><div class="r-nav-flank r-right-flank"><button class="r-tab" onclick="switchFeature('rewards', this)"><span class="r-tab-icon">🎁</span> Rewards</button><button class="r-tab" onclick="switchFeature('memberships', this)"><span class="r-tab-icon">🎖️</span> Memberships</button></div></div></div><div class="r-dark-bottom"><div class="r-grid-container r-dark-grid"><div class="r-grid-line"></div><div class="r-grid-line"></div><div class="r-grid-line"></div><div class="r-grid-line"></div><div class="r-grid-line"></div></div><div class="r-content-grid"><div class="r-panel r-left-panel fade-in" id="r-dynamic-left"><h3 class="r-feature-heading">Sell more,<br>while you sleep</h3><p class="r-feature-desc">Let Nexcore’s Ai algorithm send your patients carefully targeted offers and deals based on their browsing behaviour and personal data.</p></div><div class="r-center-panel"><div class="r-iframe-wrapper"><iframe id="protopie-frame" src="https://cloud.protopie.io/p/1f736750cc80f29339722e9a?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1" allowfullscreen></iframe></div></div><div class="r-right-panel fade-in" id="r-dynamic-right"><div class="r-stat-block"><h4 class="r-stat-number">+30k</h4><p class="r-stat-label">In-app offers that converted into sales</p></div><div class="r-stat-block"><h4 class="r-stat-number">+889%</h4><p class="r-stat-label">Higher conversion rate than email & SMS</p></div></div></div></div></section>
 
-                <!-- Review Card 2 -->
-                <div class="review-card">
-                    <div class="review-img-box">
-                        <img src="https://framerusercontent.com/images/2eOFVQQHYR1JPyKCtMuD5pt2bA.svg?width=177&height=109" alt="Treatment">
-                        <span class="category-tag">Financing</span>
-                    </div>
-                    <div class="review-body">
-                        <p class="review-text">"Super easy interface that makes membership management a breeze for our front desk."</p>
-                        <div class="reviewer-info">
-                            <div class="avatar">SM</div>
-                            <div>
-                                <div class="name">SLA Medical <span class="location">Manchester, UK</span></div>
-                                <div class="verified">Verified clinic review</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <section class="steps-section"><div class="container"><div class="steps-header"><span class="accent-tag">No credit card needed</span><h2 class="section-title-light">3 Easy steps to build your app</h2><p class="section-subtitle-light">Free trial. Preview your app today.</p></div><div class="steps-grid"><div class="step-card"><div class="step-image"><img src="https://framerusercontent.com/images/DO8OKFEwG4S82pSXJ1usIOtxaA.gif?scale-down-to=512&width=708&height=438" alt="AI Import"><div class="step-badge">Step 1</div></div><div class="step-content"><h3><span class="step-num">1.</span> AI imports your brand info</h3><p>By scraping your website for logo, colours, services & pricing to create your app in record time.</p></div></div><div class="step-card"><div class="step-image"><img src="https://framerusercontent.com/images/EgOjoZGUs19UqgskPIdrHZAjfkw.jpg?scale-down-to=512&width=649&height=402" alt="Receive App"><div class="step-badge">Step 2</div></div><div class="step-content"><h3><span class="step-num">2.</span> Receive your app, 24h later</h3><p>You’ll have the ability to immediately download your app from the App & Google Play store on your phone!</p></div></div><div class="step-card"><div class="step-image"><img src="https://framerusercontent.com/images/R6ys7b6LKdmTZzUZbGjtRWabtnU.gif?scale-down-to=512&width=708&height=438" alt="Passive Sales"><div class="step-badge">Step 3</div></div><div class="step-content"><h3><span class="step-num">3.</span> Start making passive sales!</h3><p>Introduce the app to your patients and start capturing treatment sales while you sleep.</p></div></div></div></div></section>
 
-                <!-- Review Card 3 -->
-                <div class="review-card">
-                    <div class="review-img-box">
-                        <img src="https://framerusercontent.com/images/t8YiU6p1xTjGlPWb1tUE9CQJR0.svg?width=177&height=109" alt="Doctor">
-                        <span class="category-tag">Rewards</span>
-                    </div>
-                    <div class="review-body">
-                        <p class="review-text">"The points & rewards made me guilty of buying £3,000 packages! I love the gamification."</p>
-                        <div class="reviewer-info">
-                            <div class="avatar">MJ</div>
-                            <div>
-                                <div class="name">May J. <span class="location">of Crystalline Clinic</span></div>
-                                <div class="verified">Verified patient review</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="reviews-section"><div class="container"><div class="reviews-header"><div class="review-intro"><span class="quote-mark">“</span><h2 class="section-title-white">Addictive to my patients</h2><p class="author-name">- Dr. Laurier</p><p class="review-desc">Exceed patient expectations, systematically and automatically. Retain patients. Sell more. Capture high quality referrals.</p></div><div class="slider-controls"><button class="control-btn prev">←</button><button class="control-btn next">→</button></div></div><div class="reviews-grid"><div class="review-card"><div class="review-img-box"><img src="https://framerusercontent.com/images/NyfJywqOjT3Ln9QoRfWLERyaY44.gif?width=236&height=146" alt="Clinic"><div class="category-tag">Memberships</div></div><div class="review-body"><p class="review-text">"Voice notes from my practitioner made me feel like a VIP! The engagement is unreal."</p><div class="reviewer-info"><div class="avatar">AS</div><div><div class="name">Aaliyah S. <span class="location">of Bodysculpting UK</span></div><div class="verified">Verified patient review</div></div></div></div></div><div class="review-card"><div class="review-img-box"><img src="https://framerusercontent.com/images/2eOFVQQHYR1JPyKCtMuD5pt2bA.svg?width=177&height=109" alt="Treatment"><div class="category-tag">Financing</div></div><div class="review-body"><p class="review-text">"Super easy interface that makes membership management a breeze for our front desk."</p><div class="reviewer-info"><div class="avatar">SM</div><div><div class="name">SLA Medical <span class="location">Manchester, UK</span></div><div class="verified">Verified clinic review</div></div></div></div></div><div class="review-card"><div class="review-img-box"><img src="https://framerusercontent.com/images/t8YiU6p1xTjGlPWb1tUE9CQJR0.svg?width=177&height=109" alt="Doctor"><div class="category-tag">Rewards</div></div><div class="review-body"><p class="review-text">"The points & rewards made me guilty of buying £3,000 packages! I love the gamification."</p><div class="reviewer-info"><div class="avatar">MJ</div><div><div class="name">May J. <span class="location">of Crystalline Clinic</span></div><div class="verified">Verified patient review</div></div></div></div></div></div></div></section>
 
-    <!-- Final CTA Section -->
- 
+    <section class="practices-steps"><div class="practices-steps_container"><h2 class="practices-steps_title">Practices like yours make sales <span class="text-gradient">7 days a week</span>, at all hours of the day.</h2><p class="practices-steps_desc">It's time to make growing your revenue easy.</p><div class="practices-steps_grid"><div class="practices-steps_card"><div class="practices-steps_card-index"><span class="practices-steps_number">01</span></div><div class="practices-steps_card-icon"><img src="https://assets.repeatmd.com/f/1019051/63x62/99f5102688/book-a-demo-icon.svg" alt="Book a Demo"></div><h3 class="practices-steps_card-title">Book a Demo</h3><p class="practices-steps_card-text">See how top practices use RepeatMD to sell memberships, products, and high-margin treatments automatically.</p></div><div class="practices-steps_card"><div class="practices-steps_card-index"><span class="practices-steps_number">02</span></div><div class="practices-steps_card-icon"><img src="https://assets.repeatmd.com/f/1019051/62x62/2ead344a45/launch-your-app-icon.svg" alt="Launch Your App"></div><h3 class="practices-steps_card-title">Launch Your App</h3><p class="practices-steps_card-text">We'll build your branded app with rewards, AI treatment advisors, and 24/7 shopping in 30 days or less.</p></div><div class="practices-steps_card"><div class="practices-steps_card-index"><span class="practices-steps_number">03</span></div><div class="practices-steps_card-icon"><img src="https://assets.repeatmd.com/f/1019051/62x62/a5066b211c/watch-sales-grow-icon.svg" alt="Watch Sales Grow"></div><h3 class="practices-steps_card-title">Watch Sales Grow</h3><p class="practices-steps_card-text">Your app handles the selling while you focus on your patients.</p></div></div><div class="practices-steps_btn-wrap"><a href="#" class="practices-steps_btn">Book a Demo</a></div></div></section>
 
-    <!-- Practices Steps Section -->
-    <section class="practices-steps">
-        <div class="practices-steps_container">
-            <h2 class="practices-steps_title">Practices like yours make sales <span class="text-gradient">7 days a week</span>, at all hours of the day.</h2>
-            <p class="practices-steps_desc">It's time to make growing your revenue easy.</p>
+    <section class="prefooter-cta"><div class="prefooter-cta_overlay"></div><div class="prefooter-cta_content"><h2 class="prefooter-cta_title">Sell more with <span class="">Nexcore</span></h2><p class="prefooter-cta_desc">Your branded app works 24/7 — turning browsers into buyers while you sleep.</p><a href="#" class="prefooter-cta_btn">Book a Demo</a></div></section>
 
-            <div class="practices-steps_grid">
-                <div class="practices-steps_card">
-                    <div class="practices-steps_card-index">
-                        <span class="practices-steps_number">01</span>
-                    </div>
-                    <div class="practices-steps_card-icon">
-                        <img src="https://assets.repeatmd.com/f/1019051/63x62/99f5102688/book-a-demo-icon.svg" alt="Book a Demo">
-                    </div>
-                    <h3 class="practices-steps_card-title">Book a Demo</h3>
-                    <p class="practices-steps_card-text">See how top practices use RepeatMD to sell memberships, products, and high-margin treatments automatically.</p>
-                </div>
-
-                <div class="practices-steps_card">
-                    <div class="practices-steps_card-index">
-                        <span class="practices-steps_number">02</span>
-                    </div>
-                    <div class="practices-steps_card-icon">
-                        <img src="https://assets.repeatmd.com/f/1019051/62x62/2ead344a45/launch-your-app-icon.svg" alt="Launch Your App">
-                    </div>
-                    <h3 class="practices-steps_card-title">Launch Your App</h3>
-                    <p class="practices-steps_card-text">We'll build your branded app with rewards, AI treatment advisors, and 24/7 shopping in 30 days or less.</p>
-                </div>
-
-                <div class="practices-steps_card">
-                    <div class="practices-steps_card-index">
-                        <span class="practices-steps_number">03</span>
-                    </div>
-                    <div class="practices-steps_card-icon">
-                        <img src="https://assets.repeatmd.com/f/1019051/62x62/a5066b211c/watch-sales-grow-icon.svg" alt="Watch Sales Grow">
-                    </div>
-                    <h3 class="practices-steps_card-title">Watch Sales Grow</h3>
-                    <p class="practices-steps_card-text">Your app handles the selling while you focus on your patients.</p>
-                </div>
-            </div>
-
-            <div class="practices-steps_btn-wrap">
-                <a href="#" class="practices-steps_btn">Book a Demo</a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Prefooter CTA - Sell More with Nexcore -->
-    <section class="prefooter-cta">
-        <div class="prefooter-cta_overlay"></div>
-        <div class="prefooter-cta_content">
-            <h2 class="prefooter-cta_title">Sell more with <span class="text-gradient">Nexcore</span></h2>
-            <p class="prefooter-cta_desc">Your branded app works 24/7 — turning browsers into buyers while you sleep.</p>
-            <a href="#" class="prefooter-cta_btn">Book a Demo</a>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <div class="logo-text">Nexcore</div>
-                <p>The future of aesthetic practice growth.</p>
-            </div>
-            <div class="footer-links">
-                <div class="link-col">
-                    <h4>Product</h4>
-                    <a href="#">Features</a>
-                    <a href="#">Pricing</a>
-                    <a href="#">Showcase</a>
-                </div>
-                <div class="link-col">
-                    <h4>Company</h4>
-                    <a href="#">About</a>
-                    <a href="#">Careers</a>
-                    <a href="#">Contact</a>
-                </div>
-                <div class="link-col">
-                    <h4>Legal</h4>
-                    <a href="#">Privacy</a>
-                    <a href="#">Terms</a>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2026 Nexcore Inc. All rights reserved.</p>
-        </div>
-    </footer>
+    <footer class="main-footer"><div class="footer-container"><div class="footer-brand"><div class="logo-text">Nexcore</div><p>The future of aesthetic practice growth.</p></div><div class="footer-links"><div class="link-col"><h4>Product</h4><a href="#">Features</a><a href="#">Pricing</a><a href="#">Showcase</a></div><div class="link-col"><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Contact</a></div><div class="link-col"><h4>Legal</h4><a href="#">Privacy</a><a href="#">Terms</a></div></div></div><div class="footer-bottom"><p>&copy; 2026 Nexcore Inc. All rights reserved.</p></div></footer>
 
     <script>
-        // Navbar scroll effect
-        const header = document.querySelector('.header-container');
-        let lastScroll = 0;
-
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            if (scrollY > window.innerHeight * 0.6) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-            lastScroll = scrollY;
-        });
-
-        // Hamburger menu toggle
-        const hamburger = document.querySelector('.hamburger');
-        const mobileNav = document.querySelector('.mobile-nav');
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            mobileNav.classList.toggle('open');
-            document.body.style.overflow = mobileNav.classList.contains('open') ? 'hidden' : '';
-        });
-
-        // Close mobile nav on link click
-        mobileNav.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                mobileNav.classList.remove('open');
-                document.body.style.overflow = '';
-            });
-        });
+        const featureData = {
+            offers: { title: "Sell more,<br>while you sleep", desc: "Let Nexcore’s Ai algorithm send your patients carefully targeted offers and deals based on their browsing behaviour and personal data.", iframeUrl: "https://cloud.protopie.io/p/1f736750cc80f29339722e9a?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1", stats: `<div class="r-stat-block"><h4 class="r-stat-number">+30k</h4><p class="r-stat-label">In-app offers that converted into sales</p></div><div class="r-stat-block"><h4 class="r-stat-number">Higher Booking Conversion</h4><p class="r-stat-label">in-app offers engage patients based on real-time browsing habits, yielding unprecedented conversion rates over legacy SMS or email.</p></div>` },
+            financing: { title: "Offer best-in-class<br>patient financing", desc: "Sell more expensive package deals with no friction via our exclusive integration with Klarna.<br><br>Get paid the full amount upfront, all while Klarna handles the split payments.", iframeUrl: "https://cloud.protopie.io/p/0c14d0a046e20ee0e79234fb?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1", stats: `<div class="r-stat-block"><h4 class="r-stat-number">+18%</h4><p class="r-stat-label">Lift in purchasing conversions with treat now pay later, earn rewards</p></div>` },
+            rewards: { title: "Get repeat<br>purchases", desc: "Lock all of your patients on a never-ending stream of loyalty and repeat purchases.<br><br>Capture more referrals, Google reviews, visits and late-night purchases.", iframeUrl: "https://cloud.protopie.io/p/bbc5dfec037a92153d1995ce?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1", stats: `<div class="r-stat-block"><h4 class="r-stat-number">46%</h4><p class="r-stat-label">Of first-time treatment purchases are driven by mobile rewards</p></div><div class="r-stat-block"><h4 class="r-stat-number">+39</h4><p class="r-stat-label">Average amount of referrals in first 90 days</p></div><div class="r-stat-block"><h4 class="r-stat-number">+52</h4><p class="r-stat-label">Average amount of Google reviews in first 90 days</p></div>` },
+            memberships: { title: "Earn recurring<br>revenue", desc: "Nexcore is the ultimate End-to-end solution to sell membership better than any clinic; seamlessly managing recurring billing, monthly redeemable treatments and failed payments for your patients and staff.", iframeUrl: "https://cloud.protopie.io/p/c130351e2ef62af898588c52?ui=false&scaleToFit=true&enableHotspotHints=true&cursorType=touch&mockup=true&bgColor=%23121214&playSpeed=1", stats: `<div class="r-stat-block"><h4 class="r-stat-number">44%</h4><p class="r-stat-label">Marginal increase in average patient spend annually</p></div><div class="r-stat-block"><h4 class="r-stat-number">x3</h4><p class="r-stat-label">Enterprise value from strong ARR</p></div>` }
+        };
+        window.switchFeature = function(tabId, el) {
+            document.querySelectorAll('.r-tab').forEach(btn => btn.classList.remove('active'));
+            el.classList.add('active');
+            const left = document.getElementById('r-dynamic-left'), right = document.getElementById('r-dynamic-right'), iframe = document.getElementById('protopie-frame');
+            left.classList.remove('fade-in'); right.classList.remove('fade-in');
+            setTimeout(() => {
+                left.innerHTML = `<h3 class="r-feature-heading">${featureData[tabId].title}</h3><p class="r-feature-desc">${featureData[tabId].desc}</p>`;
+                right.innerHTML = featureData[tabId].stats;
+                iframe.src = featureData[tabId].iframeUrl;
+                left.classList.add('fade-in'); right.classList.add('fade-in');
+            }, 150);
+        };
+        const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)) });
+        function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+        requestAnimationFrame(raf);
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.fade-up, .step-card, .review-card, .practices-steps_card').forEach(el => { gsap.from(el, { scrollTrigger: { trigger: el, start: "top 85%", toggleActions: "play none none reverse" }, y: 50, opacity: 0, duration: 0.8, ease: "power3.out" }); });
+        const hamburger = document.querySelector('.hamburger'), mobileNav = document.querySelector('.mobile-nav');
+        hamburger.addEventListener('click', () => { hamburger.classList.toggle('active'); mobileNav.classList.toggle('open'); if(mobileNav.classList.contains('open')) document.body.style.overflow = 'hidden'; else document.body.style.overflow = ''; });
+        document.querySelectorAll('.mobile-nav a').forEach(link => link.addEventListener('click', () => { hamburger.classList.remove('active'); mobileNav.classList.remove('open'); document.body.style.overflow = ''; }));
     </script>
-
 </body>
 </html>
